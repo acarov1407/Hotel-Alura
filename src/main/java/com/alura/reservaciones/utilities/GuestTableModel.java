@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.alura.reservaciones.model.Guest;
 
-public class CustomTableModel extends AbstractTableModel {
+public class GuestTableModel extends AbstractTableModel {
     /**
 	 * 
 	 */
@@ -16,7 +16,7 @@ public class CustomTableModel extends AbstractTableModel {
 	private List<Guest> data;
     private String[] columnNames = {"Id", "Nombre", "Apellido", "Nacimiento", "Nacionalidad", "Telefono"};
 
-    public CustomTableModel(List<Guest> data) {
+    public GuestTableModel(List<Guest> data) {
     	if(data == null) this.data = new ArrayList<>();
     	else this.data = data;
     }

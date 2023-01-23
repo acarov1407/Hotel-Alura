@@ -47,7 +47,7 @@ public class BookingDAO {
 		Booking booking;
 
 		try {
-			String query = "SELECT B.id, B.checkInDate, B.checkOutDate, B.price, B.paymentMethod, G.name, G.surname FROM booking AS B INNER JOIN guest as G where G.id = B.guestId";
+			String query = "SELECT B.id, B.checkInDate, B.checkOutDate, B.price, B.paymentMethod, G.id, G.name, G.surname FROM booking AS B INNER JOIN guest as G where G.id = B.guestId";
 			final PreparedStatement statement = this.con.prepareStatement(query);
 
 			try (statement) {
@@ -55,8 +55,9 @@ public class BookingDAO {
 
 				try (resultSet) {
 					while (resultSet.next()) {
+
 						booking = new Booking(resultSet.getString(1), resultSet.getDate(2),resultSet.getDate(3), resultSet.getDouble(4),
-								resultSet.getString(5), new Guest(resultSet.getString(6), resultSet.getString(7)));
+								resultSet.getString(5), new Guest(resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8)));
 						bookings.add(booking);
 					}
 
@@ -73,7 +74,7 @@ public class BookingDAO {
 		Booking booking;
 
 		try {
-			String query = "SELECT B.id, B.checkInDate, B.checkOutDate, B.price, B.paymentMethod, G.name, G.surname FROM booking AS B INNER JOIN guest as G where G.id = B.guestId"
+			String query = "SELECT B.id, B.checkInDate, B.checkOutDate, B.price, B.paymentMethod, G.id, G.name, G.surname FROM booking AS B INNER JOIN guest as G where G.id = B.guestId"
 					+ " AND CONCAT(G.name, ' ', G.surname) like ?";
 			final PreparedStatement statement = this.con.prepareStatement(query);
 
@@ -84,7 +85,7 @@ public class BookingDAO {
 				try (resultSet) {
 					while (resultSet.next()) {
 						booking = new Booking(resultSet.getString(1), resultSet.getDate(2), resultSet.getDate(3), resultSet.getDouble(4),
-								resultSet.getString(5), new Guest(resultSet.getString(6), resultSet.getString(7)));
+								resultSet.getString(5), new Guest(resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8)));
 						bookings.add(booking);
 					}
 
@@ -98,6 +99,8 @@ public class BookingDAO {
 	
 	public boolean deleteBooking(String id) {
 		try {
+			this.con.setAutoCommit(false);
+			
 			String query = "DELETE FROM booking WHERE id = ?";
 			final PreparedStatement statement = this.con.prepareStatement(query);
 			
@@ -128,6 +131,22 @@ public class BookingDAO {
 			}
 			
 		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void toCommit() {
+		try {
+			this.con.commit();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void enableAutoCommit() {
+		try {
+			this.con.setAutoCommit(true);
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}

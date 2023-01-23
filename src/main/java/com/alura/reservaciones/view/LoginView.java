@@ -3,6 +3,9 @@ package com.alura.reservaciones.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.alura.reservaciones.utilities.MyColor;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -36,6 +39,7 @@ public class LoginView extends JFrame {
 	private JLabel lblNewLabel_1;
 	int xMouse, yMouse;
 	private JLabel labelExit;
+	private MyColor myColor;
 
 
 	public LoginView() {
@@ -51,6 +55,7 @@ public class LoginView extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
+		myColor = new MyColor();
 		initComponents();
 			
 	}
@@ -65,7 +70,7 @@ public class LoginView extends JFrame {
 		panel.setLayout(null);
 		
 		panel_1 = new JPanel();
-		panel_1.setBackground(new Color(12, 138, 199));
+		panel_1.setBackground(this.myColor.getCustomBlue());
 		panel_1.setBounds(484, 0, 304, 527);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
@@ -80,21 +85,17 @@ public class LoginView extends JFrame {
 		panel_1.add(btnexit);
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
-			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.red);
 				labelExit.setForeground(Color.white);
 			}			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				 btnexit.setBackground(new Color(12, 138, 199));
+				 btnexit.setBackground(myColor.getCustomBlue());
 			     labelExit.setForeground(Color.white);
 			}
 		});
-		btnexit.setBackground(new Color(12, 138, 199));
+		btnexit.setBackground(this.myColor.getCustomBlue());
 		btnexit.setLayout(null);
 		btnexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
@@ -128,7 +129,7 @@ public class LoginView extends JFrame {
 		txtUser.setColumns(10);
 		
 		separator = new JSeparator();
-		separator.setBackground(new Color(0, 120, 215));
+		separator.setBackground(this.myColor.getSeparatorColor());
 		separator.setBounds(65, 292, 324, 2);
 		panel.add(separator);
 		
@@ -153,7 +154,7 @@ public class LoginView extends JFrame {
 					txtPassword.setForeground(Color.black);
 		        }
 		        if (txtUser.getText().isEmpty()) {
-		        	txtUser.setText("Ingrese su nombre de usuario");
+		        	txtUser.setText("passsword");
 		        	txtUser.setForeground(Color.gray);
 		        }
 			}
@@ -248,6 +249,13 @@ public class LoginView extends JFrame {
 	public JPasswordField getTxtPassword() {
 		return txtPassword;
 	}
+
+
+
+	public JPanel getBtnexit() {
+		return btnexit;
+	}
+	
 	
 	
 

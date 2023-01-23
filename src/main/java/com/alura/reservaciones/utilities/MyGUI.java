@@ -10,10 +10,12 @@ import com.alura.reservaciones.model.Guest;
 
 public class MyGUI {
 	private JFrame frame;
+	private String[] customOptions = {"Si", "No"};
 	
 	public MyGUI(JFrame frame) {
 		this.frame = frame;
 	}
+	
 	
 	public boolean validateGuestForm(Guest guest) {
 
@@ -84,8 +86,15 @@ public class MyGUI {
 	}
 
 	public boolean showConfirmDialog(String msg) {
-		int result = JOptionPane.showConfirmDialog(this.frame, msg, "Confirmar", JOptionPane.YES_NO_OPTION,
-				JOptionPane.INFORMATION_MESSAGE);
-		return result == 0;
+		int result  = JOptionPane.showOptionDialog(frame,
+	               msg, 
+	               "Confirmar",            
+	               JOptionPane.YES_NO_OPTION,
+	               JOptionPane.QUESTION_MESSAGE,
+	               null,  
+	               this.customOptions,  
+	               this.customOptions[1]);
+		
+		return result == JOptionPane.YES_OPTION;
 	}
 }

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import com.alura.reservaciones.utilities.MyGUI;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class ConnectionFactory {
@@ -14,7 +15,12 @@ public class ConnectionFactory {
 	
 	private DataSource datasource;
 	
+	private MyGUI myGUI;
+	
 	public ConnectionFactory() {
+		
+		this.myGUI = new MyGUI(null);
+		
 		ComboPooledDataSource pooledDataSource = new ComboPooledDataSource();
 		pooledDataSource.setJdbcUrl(this.url);
 		pooledDataSource.setUser(this.user);
@@ -28,6 +34,7 @@ public class ConnectionFactory {
 		try {
 			return this.datasource.getConnection();
 		} catch (SQLException e) {
+			this.myGUI.showMessage("Ha ocurrido un error al intentar conectarse con la base de datos");
 			throw new RuntimeException(e);
 		}
 	}

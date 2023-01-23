@@ -3,6 +3,7 @@ package com.alura.reservaciones.controller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import com.alura.reservaciones.dao.BookingDAO;
@@ -25,6 +26,9 @@ public class SearchController {
 		this.searchView = new SearchView();
 		this.con = new ConnectionFactory().createConnection();
 		this.myGUI = new MyGUI(this.searchView);
+		
+		this.guestDAO = new GuestDAO(this.con);
+		this.bookingDAO = new BookingDAO(this.con);
 		addEventListeners();
 	}
 
@@ -43,7 +47,7 @@ public class SearchController {
 		this.searchView.getBtnExit().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				back();
+				close();
 			}
 		});
 
@@ -75,6 +79,10 @@ public class SearchController {
 		userMenu.show();
 	}
 
+	private void close() {
+		back();
+	}
+
 	private void handleSearch() {
 		String search = this.searchView.getTxtSearch().getText().trim();
 
@@ -100,14 +108,12 @@ public class SearchController {
 	}
 
 	private void searchGuest(String search) {
-		guestDAO = new GuestDAO(this.con);
 		List<Guest> guests = guestDAO.getGuests(search);
 
 		showGuests(guests);
 	}
 
 	private void searchAllGuests() {
-		guestDAO = new GuestDAO(this.con);
 		List<Guest> guests = guestDAO.getAllGuests();
 
 		showGuests(guests);
@@ -130,14 +136,12 @@ public class SearchController {
 	}
 
 	private void searchBooking(String search) {
-		bookingDAO = new BookingDAO(this.con);
 		List<Booking> bookings = bookingDAO.getBookings(search);
 
 		showBookings(bookings);
 	}
 
 	private void searchAllBookings() {
-		bookingDAO = new BookingDAO(this.con);
 		List<Booking> bookings = bookingDAO.getAllBookings();
 
 		showBookings(bookings);
@@ -207,10 +211,10 @@ public class SearchController {
 		}
 
 		booking.setPrice(booking.calculatePrice());
-		
+
 		boolean confirmEdit = this.myGUI.showConfirmDialog("¿Esta seguro que desea guardar los cambios hechos?");
-		
-		if(!confirmEdit) {
+
+		if (!confirmEdit) {
 			return;
 		}
 
@@ -240,16 +244,36 @@ public class SearchController {
 		}
 	}
 
+	private Guest getSelectedBookingOwner() {
+
+		int selectedRow = this.myGUI.getSelectedRow(this.searchView.getTbBooking());
+		Guest guest = (Guest) this.searchView.getTbBooking().getValueAt(selectedRow, 5);
+		return guest;
+	}
+
+
+
 	private void deleteBooking() {
-		boolean isDeleted = this.bookingDAO.deleteBooking(getSelectedBookingId());
-
-		this.myGUI.showDeleteBookingMessage(isDeleted);
-
-		searchAllBookings();
+		Integer ownerId = getSelectedBookingOwner().getId();
+		
+		try {
+			boolean isDeletedBooking = this.bookingDAO.deleteBooking(getSelectedBookingId());	
+			boolean isDeletedBookingOwner = this.guestDAO.deleteGuest(ownerId);
+			if(isDeletedBooking && isDeletedBookingOwner) {
+				this.bookingDAO.toCommit();
+				this.bookingDAO.enableAutoCommit();
+				this.myGUI.showDeleteBookingMessage(isDeletedBooking && isDeletedBookingOwner);
+			}
+			
+		}catch(SQLException e) {
+			this.myGUI.showMessage("Ha ocurrido un error al intentar eliminar la reserva");
+			throw new RuntimeException(e);
+		}finally {
+			searchAllBookings();
+		}	
 
 	}
 
-	
 	private Integer getSelectedGuestId() {
 
 		int selectedRow = this.myGUI.getSelectedRow(this.searchView.getTbGuest());
@@ -273,12 +297,12 @@ public class SearchController {
 
 		return selectedGuest;
 	}
-	
+
 	private String getSelectedBookingId() {
 
 		int selectedRow = this.myGUI.getSelectedRow(this.searchView.getTbBooking());
 
-		String id = String.valueOf(this.searchView.getTbBooking().getValueAt(selectedRow, 0)); 
+		String id = String.valueOf(this.searchView.getTbBooking().getValueAt(selectedRow, 0));
 		return id;
 	}
 

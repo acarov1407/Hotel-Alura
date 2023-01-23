@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
-
 import com.alura.reservaciones.dao.BookingDAO;
 import com.alura.reservaciones.dao.GuestDAO;
 import com.alura.reservaciones.factory.ConnectionFactory;
@@ -26,9 +25,9 @@ public class GuestRegisterController {
 		this.guestRegisterView = new GuestRegisterView();
 		this.booking = booking;
 		this.guestRegisterView.getTxtNreserva().setText(this.booking.getId());
-		
+
 		this.myGUI = new MyGUI(this.guestRegisterView);
-		
+
 		addEventListeners();
 	}
 
@@ -54,21 +53,29 @@ public class GuestRegisterController {
 		this.guestRegisterView.getBtnExit().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				exit();
+				close();
 			}
 		});
 	}
 
 	private void back() {
+
+		this.guestRegisterView.dispose();
 		BookingController bookingController = new BookingController();
 		bookingController.show();
-		this.guestRegisterView.dispose();
+
 	}
 
-	private void exit() {
-		PrincipalMenuController principalMenuController = new PrincipalMenuController();
-		principalMenuController.show();
-		this.guestRegisterView.dispose();
+	private void close() {
+		boolean isConfirmedClose = this.myGUI
+				.showConfirmDialog("¿Esta seguro que desea cancelar el registro del huesped?");
+
+		if (isConfirmedClose) {
+			this.guestRegisterView.dispose();
+			UserMenuController userMenuController = new UserMenuController();
+			userMenuController.show();
+		}
+
 	}
 
 	private void openSuccessView() {
@@ -86,32 +93,31 @@ public class GuestRegisterController {
 			openSuccessView();
 		}
 	}
-	
+
 	private void saveData() {
 		Connection con = new ConnectionFactory().createConnection();
-		
+
 		try {
 			saveGuest(con);
 			saveBooking(con);
-			this.guestDAO.commitSave();
-		}catch(SQLException e) {
+			this.guestDAO.toCommit();
+		} catch (SQLException e) {
 			this.myGUI.showMessage("Ha ocurrido un error al intentar registar los datos!");
 			throw new RuntimeException(e);
 		}
-				
-		
+
 	}
 
 	private void saveBooking(Connection con) throws SQLException {
-			bookingDAO = new BookingDAO(con);
-			bookingDAO.saveBooking(this.booking);	
+		bookingDAO = new BookingDAO(con);
+		bookingDAO.saveBooking(this.booking);
 
 	}
 
 	private void saveGuest(Connection con) {
 		guestDAO = new GuestDAO(con);
 		Integer guestId = guestDAO.saveGuest(this.guest);
-		this.guest.setId(guestId); 
+		this.guest.setId(guestId);
 		this.booking.setOwner(this.guest);
 	}
 
@@ -130,7 +136,5 @@ public class GuestRegisterController {
 
 		return this.myGUI.validateGuestForm(this.guest);
 	}
-
-
 
 }

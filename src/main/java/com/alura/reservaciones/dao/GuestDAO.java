@@ -131,7 +131,20 @@ final private Connection con;
 		
 	}
 	
-	public void commitSave() {
+	public boolean deleteGuest(Integer id) throws SQLException {
+		
+			String query = "DELETE FROM guest WHERE id = ?";
+			final PreparedStatement statement = this.con.prepareStatement(query);
+			
+			try(statement){
+				statement.setInt(1, id);
+				int result = statement.executeUpdate();
+				return result == 1;
+			}
+			
+	}
+	
+	public void toCommit() {
 		try {
 			this.con.commit();
 		} catch (SQLException e) {

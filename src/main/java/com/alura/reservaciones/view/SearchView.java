@@ -7,7 +7,8 @@ import javax.swing.border.EmptyBorder;
 import com.alura.reservaciones.enums.Nationalities;
 import com.alura.reservaciones.enums.PaymentMethods;
 import com.alura.reservaciones.utilities.BookingTableModel;
-import com.alura.reservaciones.utilities.CustomTableModel;
+import com.alura.reservaciones.utilities.GuestTableModel;
+import com.alura.reservaciones.utilities.MyColor;
 import com.alura.reservaciones.utilities.DateChooserEditor;
 import com.alura.reservaciones.utilities.DateChooserRenderer;
 import javax.swing.JTable;
@@ -35,7 +36,7 @@ public class SearchView extends JFrame {
 	private JTable tbGuest;
 	private JTable tbBooking;
 	private BookingTableModel modelBooking;
-	private CustomTableModel modelGuest;
+	private GuestTableModel modelGuest;
 	private JLabel lblBack;
 	private JLabel lblExit;
 	private JLabel lblNewLabel_4;
@@ -52,6 +53,7 @@ public class SearchView extends JFrame {
 	private JPanel btnDelete;
 	private JLabel lblDelete;
 	private int xMouse, yMouse;
+	private MyColor myColor;
 
 	
 
@@ -68,6 +70,7 @@ public class SearchView extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
+		myColor = new MyColor();
 		setTables();
 		initComponents();
 		
@@ -85,13 +88,13 @@ public class SearchView extends JFrame {
 		
 		
 		lblNewLabel_4 = new JLabel("SISTEMA DE BÚSQUEDA");
-		lblNewLabel_4.setForeground(new Color(12, 138, 199));
+		lblNewLabel_4.setForeground(this.myColor.getCustomBlue());
 		lblNewLabel_4.setFont(new Font("Roboto Black", Font.BOLD, 24));
 		lblNewLabel_4.setBounds(331, 62, 301, 42);
 		contentPane.add(lblNewLabel_4);
 		
 		tabSearch = new JTabbedPane(JTabbedPane.TOP);
-		tabSearch.setBackground(new Color(12, 138, 199));
+		tabSearch.setBackground(this.myColor.getCustomBlue());
 		tabSearch.setFont(new Font("Roboto", Font.PLAIN, 16));
 		tabSearch.setBounds(20, 169, 865, 328);
 		contentPane.add(tabSearch);
@@ -127,7 +130,7 @@ public class SearchView extends JFrame {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnBack.setBackground(new Color(12, 138, 199));
+				btnBack.setBackground(myColor.getCustomBlue());
 				lblBack.setForeground(Color.white);
 			}			
 			@Override
@@ -173,14 +176,14 @@ public class SearchView extends JFrame {
 		btnExit.add(lblExit);
 		
 		separator_1_2 = new JSeparator();
-		separator_1_2.setForeground(new Color(12, 138, 199));
-		separator_1_2.setBackground(new Color(12, 138, 199));
+		separator_1_2.setForeground(this.myColor.getCustomBlue());
+		separator_1_2.setBackground(this.myColor.getCustomBlue());
 		separator_1_2.setBounds(539, 159, 193, 2);
 		contentPane.add(separator_1_2);
 		
 		btnSearch = new JPanel();
 		btnSearch.setLayout(null);
-		btnSearch.setBackground(new Color(12, 138, 199));
+		btnSearch.setBackground(this.myColor.getCustomBlue());
 		btnSearch.setBounds(748, 125, 122, 35);
 		btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnSearch);
@@ -194,7 +197,7 @@ public class SearchView extends JFrame {
 		
 		btnEdit = new JPanel();
 		btnEdit.setLayout(null);
-		btnEdit.setBackground(new Color(12, 138, 199));
+		btnEdit.setBackground(this.myColor.getCustomBlue());
 		btnEdit.setBounds(635, 508, 122, 35);
 		btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnEdit);
@@ -208,7 +211,7 @@ public class SearchView extends JFrame {
 		
 		btnDelete = new JPanel();
 		btnDelete.setLayout(null);
-		btnDelete.setBackground(new Color(12, 138, 199));
+		btnDelete.setBackground(this.myColor.getCustomBlue());
 		btnDelete.setBounds(767, 508, 122, 35);
 		btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnDelete);
@@ -234,7 +237,7 @@ public class SearchView extends JFrame {
 		tbGuest.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbGuest.setFont(new Font("Roboto", Font.PLAIN, 16));
 		
-		modelGuest = new CustomTableModel(null);
+		modelGuest = new GuestTableModel(null);
 		tbGuest.setModel(modelGuest);
 		
 		JComboBox<String> nationalities = new JComboBox<>();
@@ -313,7 +316,7 @@ public class SearchView extends JFrame {
 			return btnDelete;
 		}
 
-		public CustomTableModel getModelGuest() {
+		public GuestTableModel getModelGuest() {
 			return modelGuest;
 		}
 		

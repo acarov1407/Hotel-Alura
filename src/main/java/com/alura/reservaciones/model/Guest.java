@@ -11,7 +11,8 @@ public class Guest {
 	private String phoneNumber;
 
 	
-	public Guest(String name, String surname) {
+	public Guest(Integer id, String name, String surname) {
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 	}

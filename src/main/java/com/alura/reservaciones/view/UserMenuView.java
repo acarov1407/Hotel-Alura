@@ -18,6 +18,8 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.alura.reservaciones.utilities.MyColor;
+
 
 @SuppressWarnings("serial")
 public class UserMenuView extends JFrame {
@@ -43,6 +45,7 @@ public class UserMenuView extends JFrame {
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_3_1;
 	private JLabel lblNewLabel_3_2;
+	private MyColor myColor;
 
 
 	public UserMenuView() {
@@ -58,6 +61,7 @@ public class UserMenuView extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
+		myColor = new MyColor();
 		initComponents();
 		
 		
@@ -79,7 +83,7 @@ public class UserMenuView extends JFrame {
 		});
 		
 		panelMenu = new JPanel();
-		panelMenu.setBackground(new Color(12, 138, 199));
+		panelMenu.setBackground(this.myColor.getCustomBlue());
 		panelMenu.setBounds(0, 0, 257, 609);
 		contentPane.add(panelMenu);
 		panelMenu.setLayout(null);
@@ -93,15 +97,15 @@ public class UserMenuView extends JFrame {
 		btnRegister.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnRegister.setBackground(new Color(118, 187, 223));				
+				btnRegister.setBackground(myColor.getHoverBlue());				
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnRegister.setBackground(new Color(12, 138, 199));	
+				btnRegister.setBackground(myColor.getCustomBlue());	
 			}
 		});
 		btnRegister.setBounds(0, 255, 257, 56);
-		btnRegister.setBackground(new Color(12, 138, 199));
+		btnRegister.setBackground(this.myColor.getCustomBlue());
 		panelMenu.add(btnRegister);
 		btnRegister.setLayout(null);
 		
@@ -117,15 +121,15 @@ public class UserMenuView extends JFrame {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSearch.setBackground(new Color(118, 187, 223));				
+				btnSearch.setBackground(myColor.getHoverBlue());				
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSearch.setBackground(new Color(12, 138, 199));
+				btnSearch.setBackground(myColor.getCustomBlue());
 			}
 		});
 		btnSearch.setBounds(0, 312, 257, 56);
-		btnSearch.setBackground(new Color(12, 138, 199));
+		btnSearch.setBackground(this.myColor.getCustomBlue());
 		panelMenu.add(btnSearch);
 		btnSearch.setLayout(null);
 		
@@ -147,10 +151,6 @@ public class UserMenuView extends JFrame {
 		
 		btnExit = new JPanel();
 		btnExit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnExit.setBackground(Color.red);
@@ -175,7 +175,7 @@ public class UserMenuView extends JFrame {
 		lblExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 		
 	    panelDate = new JPanel();
-	    panelDate.setBackground(new Color(118, 187, 223));
+	    panelDate.setBackground(this.myColor.getHoverBlue());
 	    panelDate.setBounds(256, 84, 688, 121);
 	    contentPane.add(panelDate);
 	    panelDate.setLayout(null);
@@ -247,6 +247,12 @@ public class UserMenuView extends JFrame {
     public JPanel getBtnSearch() {
 		return btnSearch;
 	}
+
+	public JPanel getBtnExit() {
+		return btnExit;
+	}
+    
+    
     
     
 }

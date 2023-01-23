@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Color;
 import com.alura.reservaciones.enums.Nationalities;
+import com.alura.reservaciones.utilities.MyColor;
 import com.alura.reservaciones.utilities.MyDate;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
@@ -57,6 +58,7 @@ public class GuestRegisterView extends JFrame {
 	private JLabel logo;
 	private JPanel btnExit;
 	private int xMouse, yMouse;
+	private MyColor myColor;
 
 
 
@@ -64,7 +66,6 @@ public class GuestRegisterView extends JFrame {
 
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage(GuestRegisterView.class.getResource("/images/lOGO-50PX.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.text);
@@ -74,6 +75,7 @@ public class GuestRegisterView extends JFrame {
 		setUndecorated(true);
 		contentPane.setLayout(null);
 		
+		myColor = new MyColor();
 		initComponents();
 		
 
@@ -113,12 +115,12 @@ public class GuestRegisterView extends JFrame {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnBack.setBackground(new Color(12, 138, 199));
+				btnBack.setBackground(myColor.getCustomBlue());
 				lblBack.setForeground(Color.white);
 			}
 		});
 		btnBack.setLayout(null);
-		btnBack.setBackground(new Color(12, 138, 199));
+		btnBack.setBackground(this.myColor.getCustomBlue());
 		btnBack.setBounds(0, 0, 53, 36);
 		header.add(btnBack);
 
@@ -149,7 +151,7 @@ public class GuestRegisterView extends JFrame {
 		txtBirthDay = new JDateChooser(MyDate.parseDate("2000-07-14"));
 		JTextFieldDateEditor editor = (JTextFieldDateEditor) txtBirthDay.getDateEditor();
 		editor.setEnabled(false);
-		editor.setBackground(new Color(255, 255, 255));
+		editor.setBackground(Color.WHITE);
 		editor.setDisabledTextColor(SystemColor.textHighlight);
 		editor.setFont(new Font("Roboto", Font.PLAIN, 14));
 		txtBirthDay.setBounds(560, 278, 285, 36);
@@ -205,8 +207,8 @@ public class GuestRegisterView extends JFrame {
 		contentPane.add(txtPhoneNumber);
 
 		lblTitle = new JLabel("REGISTRO HUÉSPED");
-		lblTitle.setBounds(606, 55, 234, 42);
-		lblTitle.setForeground(new Color(12, 138, 199));
+		lblTitle.setBounds(598, 55, 239, 42);
+		lblTitle.setForeground(this.myColor.getCustomBlue());
 		lblTitle.setFont(new Font("Roboto Black", Font.PLAIN, 23));
 		contentPane.add(lblTitle);
 
@@ -227,44 +229,44 @@ public class GuestRegisterView extends JFrame {
 
 		separator_1_2 = new JSeparator();
 		separator_1_2.setBounds(560, 170, 289, 2);
-		separator_1_2.setForeground(new Color(12, 138, 199));
-		separator_1_2.setBackground(new Color(12, 138, 199));
+		separator_1_2.setForeground(this.myColor.getSeparatorColor());
+		separator_1_2.setBackground(this.myColor.getSeparatorColor());
 		contentPane.add(separator_1_2);
 
 		separator_1_2_1 = new JSeparator();
 		separator_1_2_1.setBounds(560, 240, 289, 2);
-		separator_1_2_1.setForeground(new Color(12, 138, 199));
-		separator_1_2_1.setBackground(new Color(12, 138, 199));
+		separator_1_2_1.setForeground(this.myColor.getSeparatorColor());
+		separator_1_2_1.setBackground(this.myColor.getSeparatorColor());
 		contentPane.add(separator_1_2_1);
 
 		separator_1_2_2 = new JSeparator();
 		separator_1_2_2.setBounds(560, 314, 289, 2);
-		separator_1_2_2.setForeground(new Color(12, 138, 199));
-		separator_1_2_2.setBackground(new Color(12, 138, 199));
+		separator_1_2_2.setForeground(this.myColor.getSeparatorColor());
+		separator_1_2_2.setBackground(this.myColor.getSeparatorColor());
 		contentPane.add(separator_1_2_2);
 
 		separator_1_2_3 = new JSeparator();
 		separator_1_2_3.setBounds(560, 386, 289, 2);
-		separator_1_2_3.setForeground(new Color(12, 138, 199));
-		separator_1_2_3.setBackground(new Color(12, 138, 199));
+		separator_1_2_3.setForeground(this.myColor.getSeparatorColor());
+		separator_1_2_3.setBackground(this.myColor.getSeparatorColor());
 		contentPane.add(separator_1_2_3);
 
 		separator_1_2_4 = new JSeparator();
 		separator_1_2_4.setBounds(560, 457, 289, 2);
-		separator_1_2_4.setForeground(new Color(12, 138, 199));
-		separator_1_2_4.setBackground(new Color(12, 138, 199));
+		separator_1_2_4.setForeground(this.myColor.getSeparatorColor());
+		separator_1_2_4.setBackground(this.myColor.getSeparatorColor());
 		contentPane.add(separator_1_2_4);
 
 		separator_1_2_5 = new JSeparator();
 		separator_1_2_5.setBounds(560, 529, 289, 2);
-		separator_1_2_5.setForeground(new Color(12, 138, 199));
-		separator_1_2_5.setBackground(new Color(12, 138, 199));
+		separator_1_2_5.setForeground(this.myColor.getSeparatorColor());
+		separator_1_2_5.setBackground(this.myColor.getSeparatorColor());
 		contentPane.add(separator_1_2_5);
 
 		btnSave = new JPanel();
 		btnSave.setBounds(723, 560, 122, 35);
 		btnSave.setLayout(null);
-		btnSave.setBackground(new Color(12, 138, 199));
+		btnSave.setBackground(this.myColor.getCustomBlue());
 		contentPane.add(btnSave);
 		btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -277,7 +279,7 @@ public class GuestRegisterView extends JFrame {
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 489, 634);
-		panel.setBackground(new Color(12, 138, 199));
+		panel.setBackground(this.myColor.getCustomBlue());
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -302,12 +304,12 @@ public class GuestRegisterView extends JFrame {
 			}			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				 btnExit.setBackground(new Color(255, 255, 255));
+				 btnExit.setBackground(Color.WHITE);
 			     lblExit.setForeground(Color.black);
 			}
 		});
 		btnExit.setLayout(null);
-		btnExit.setBackground(new Color(255, 255, 255));
+		btnExit.setBackground(Color.WHITE);
 		btnExit.setBounds(857, 0, 53, 36);
 		
 		lblExit = new JLabel("X");
