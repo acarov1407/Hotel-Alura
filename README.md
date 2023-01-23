@@ -1,12 +1,15 @@
 
 ![menu-img](https://user-images.githubusercontent.com/118088808/213954737-6026ae96-8f54-4c92-8089-28e28715e285.png)
-## Descripción
+## :page_with_curl: Descripción
 Este proyecto consiste en un aplicativo tipo CRUD que se encarga de controlar las 
 reservaciones de un hotel, guardando tanto la información de la reserva como la del huesped
 que la realiza, para posteriormente poder mostrarla en una tabla en la cual se podrá 
 actualizar o eliminar dicha información según sea el caso.
 
-## Funcionalidades 
+## :computer: El proyecto funcionando
+Aqui podrás ver una demostración del proyecto en funcionamiento: <br>
+:movie_camera: <a target=_blank> https://clipchamp.com/watch/tZ6lcWGB4kn </a>
+## :wrench: Funcionalidades 
 - ### Autenticación de usuario
 La aplicación cuenta con un sistema de autenticación para que solo los usuarios autorizados del hotel puedan hacer uso de este aplicativo.
 La autenticación se hace por medio de la base de datos, usando "Advanced Encryption Standard (AES)" para el manejo de las contraseñas, 
@@ -55,7 +58,6 @@ En la pestaña de huespedes el usuario podrá:
 Un huesped solo se elimina de la base de datos cuando se elimina previamente su reserva.
 
 ![image](https://user-images.githubusercontent.com/118088808/214128332-df4faff5-db77-4d1c-b652-946768a3aa84.png)
-
 
 
 
