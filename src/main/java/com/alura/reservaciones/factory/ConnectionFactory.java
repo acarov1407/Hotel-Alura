@@ -11,7 +11,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class ConnectionFactory {
 	private final String url = "jdbc:mysql://localhost:3306/hotel_control?useTimeZone=true&serverTimeZone=UTC";
 	private final String user = "root";
-	private final String pass = "ptTShah2021@";
+	private final String pass = "enterpass";
 	
 	private DataSource datasource;
 	
